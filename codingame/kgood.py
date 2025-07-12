@@ -16,3 +16,4 @@ while high>low:
     else:
         high=mid
 print(low - 1)
+    
