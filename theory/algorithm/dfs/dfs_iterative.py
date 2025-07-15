@@ -1,17 +1,18 @@
 from collections import deque
-from collections import deque
 
-def dfs(root, graph):
-    visited = set()
-    stack = deque([root])
-    
+def dfs_all_paths_to_leaves(root, graph):
+    stack = deque([(root, [root])])  # Each item is (node, current path)
+    all_paths = []
+
     while stack:
-        v = stack.pop()  # Call the pop method with parentheses
-        if v not in visited:
-            print(v)  # Print after confirming it's unvisited
-            visited.add(v)
-            for neighbor in range (len(graph.get(v, []))-1,-1,-1):
-                stack.append((graph.get(v,[]))[neighbor])  # Use append, not push
+        node, path = stack.pop()
+        children = graph.get(node, [])
+        if not children:  # Leaf node
+            all_paths.append(path)
+        else:
+            for neighbor in reversed(children):  # Reversed for correct DFS order
+                stack.append((neighbor, path + [neighbor]))  # Create a new path
+    return all_paths
 
 graph={
     "1":["2","3","4"],
@@ -24,4 +25,4 @@ graph={
     "8":[],
     "9":[],
 }
-dfs("1",graph)
+print(dfs_all_paths_to_leaves("1",graph))
