@@ -25,4 +25,5 @@ graph={
     "8":[],
     "9":[],
 }
+
 print(dfs_all_paths_to_leaves("1",graph))
